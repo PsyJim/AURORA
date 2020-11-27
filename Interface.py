@@ -88,6 +88,7 @@ def exit_program():
         pass
 
 
+#=================== THIS FUNCTION I GUESS WILL BE MOVED ===================
 def show_fits(data):
     """
     Function to display data FITS with matplotlib
@@ -154,6 +155,25 @@ def change_scale(scale):
 
     #Re-display data
     show_fits(data)
+    #Getting global variable
+
+    try:
+        #Creating a figure to display data
+        fig = plt.figure(dpi=100)
+        ax = fig.add_subplot(111)
+
+        #Data display settings
+        norm = ImageNormalize(data, interval=MinMaxInterval(), stretch=LogStretch())
+        image = ax.imshow(data, norm=norm, origin='lower', cmap ='gray')
+        fig.colorbar(image)
+        fig.suptitle('FITS data')
+
+        #Display figure with data in window
+        add_figure = FigureCanvasTkAgg(fig, root)
+        add_figure.get_tk_widget().pack(side=LEFT, fill=BOTH)
+    
+    except Exception as error:
+        show_error(error)
 
 
 #===========================================================================
@@ -212,6 +232,8 @@ if __name__ == "__main__":
     #Adding the options to menu bar
     menu_bar.add_cascade(label='File', menu=file)
     menu_bar.add_cascade(label='Tools', menu=tools)
+    #Adding the times to menu bar
+    menu_bar.add_cascade(label='File', menu=file)
     menu_bar.add_cascade(label='Help', menu=help)
 
     #=================== SEPARATOR ===================
