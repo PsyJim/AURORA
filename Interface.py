@@ -153,6 +153,9 @@ def change_scale(scale):
     else:
         scale_type = SqrtStretch() 
 
+    #Re-display data
+    show_fits(data)
+
 
 
 #===========================================================================
