@@ -88,7 +88,7 @@ def exit_program():
         pass
 
 
-#=================== THIS FUNCTION I GUESS WILL BE MOVED ===================
+#=================== THIS FUNCTIONS I GUESS WILL BE MOVED ===================
 def show_fits(data):
     """
     Function to display data FITS with matplotlib
@@ -111,7 +111,7 @@ def show_fits(data):
 
         #Toolbar from matplotlib to interact with figure
         toolbar = NavigationToolbar2Tk(add_figure, frame)
-        #toolbar.update()
+        toolbar.update()
 
         #Add the figure as a widget to the window
         add_figure.get_tk_widget().pack()
@@ -153,27 +153,6 @@ def change_scale(scale):
     else:
         scale_type = SqrtStretch() 
 
-    #Re-display data
-    show_fits(data)
-    #Getting global variable
-
-    try:
-        #Creating a figure to display data
-        fig = plt.figure(dpi=100)
-        ax = fig.add_subplot(111)
-
-        #Data display settings
-        norm = ImageNormalize(data, interval=MinMaxInterval(), stretch=LogStretch())
-        image = ax.imshow(data, norm=norm, origin='lower', cmap ='gray')
-        fig.colorbar(image)
-        fig.suptitle('FITS data')
-
-        #Display figure with data in window
-        add_figure = FigureCanvasTkAgg(fig, root)
-        add_figure.get_tk_widget().pack(side=LEFT, fill=BOTH)
-    
-    except Exception as error:
-        show_error(error)
 
 
 #===========================================================================
@@ -217,7 +196,7 @@ if __name__ == "__main__":
     #Tools options on the menubar
     tools = Menu(menu_bar, tearoff=0)
 
-    #Sub options in Tools
+    #Sub-options in Tools
     scale = Menu(tools, tearoff=0)
     scale.add_command(label="Linear scale", command=lambda:change_scale('Linear'))
     scale.add_command(label="Log scale", command=lambda:change_scale('Log'))
@@ -227,13 +206,11 @@ if __name__ == "__main__":
     #Help options on menu bar
     help = Menu(menu_bar, tearoff=0)
     help.add_command(label='Licency', command=lambda:show_info('Licency', 'This program has no licency yet'))
-    help.add_command(label='About',command=lambda:show_info('About', 'DCViewer version: Cambriad period 0.1'))
+    help.add_command(label='About',command=lambda:show_info('About', 'DCViewer version: Ordovician period 0.2'))
 
     #Adding the options to menu bar
     menu_bar.add_cascade(label='File', menu=file)
     menu_bar.add_cascade(label='Tools', menu=tools)
-    #Adding the times to menu bar
-    menu_bar.add_cascade(label='File', menu=file)
     menu_bar.add_cascade(label='Help', menu=help)
 
     #=================== SEPARATOR ===================
