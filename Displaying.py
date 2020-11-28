@@ -39,7 +39,7 @@ def plot_fits(data, scale_type):
     fig.colorbar(image)
     fig.suptitle('FITS data cube')
 
-    return fig
+    return fig, ax
 
 
 #===========================

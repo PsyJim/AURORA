@@ -3,7 +3,9 @@ This python file stores all the interface stuff for
 DCViewer. We are using tkinter as our default interface
 package.
 
-Iconos diseñados por <a href="https://www.flaticon.es/autores/dinosoftlabs" title="DinosoftLabs">DinosoftLabs</a> from <a href="https://www.flaticon.es/" title="Flaticon"> www.flaticon.es</a>
+Iconos diseñados por <a href="https://www.flaticon.es/autores/dinosoftlabs" 
+    title="DinosoftLabs">DinosoftLabs</a> from <a href="https://www.flaticon.es/" 
+    title="Flaticon"> www.flaticon.es</a>
 """
 
 #===========================
@@ -15,6 +17,7 @@ from tkinter import messagebox
 from tkinter import simpledialog
 
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, NavigationToolbar2Tk
+from matplotlib.widgets import RectangleSelector
 #from matplotlib.backend_bases import key_press_handler # Implement the default Matplotlib key bindings.
 #from matplotlib import pyplot as plt
 
@@ -89,6 +92,7 @@ def exit_program():
 
 
 #=================== THIS FUNCTIONS I GUESS WILL BE MOVED ===================
+
 def show_fits(data):
     """
     Function to display data FITS with matplotlib
@@ -103,7 +107,7 @@ def show_fits(data):
     #Handling errors with try sentence
     try:
         #Creating the data cube figure
-        fig = plot_fits(data, scale_type)
+        fig, ax = plot_fits(data, scale_type)
 
         #Display figure with data in window
         add_figure = FigureCanvasTkAgg(fig, frame)
@@ -113,8 +117,18 @@ def show_fits(data):
         toolbar = NavigationToolbar2Tk(add_figure, frame)
         toolbar.update()
 
+        #To draw a rectangle on the data cube image
+        toggle_selector.RS = RectangleSelector(ax, line_select_callback,
+                                       drawtype='box', useblit=True,
+                                       button=[1, 3],  # don't use middle button
+                                       minspanx=5, minspany=5,
+                                       spancoords='pixels',
+                                       interactive=True)
+        add_figure.mpl_connect('key_press_event', toggle_selector) #Connect 
+
         #Add the figure as a widget to the window
         add_figure.get_tk_widget().pack()
+        
         
     
     except:
@@ -156,6 +170,39 @@ def change_scale(scale):
     #Re-display data
     show_fits(data)
 
+#def change_wavelenght():
+#    """
+#    Function to display a scrollbar that will
+#    change the wavelenght of the data cube
+#    """
+#    scrollbar = Scrollbar(frame)
+
+
+#================================= FUNCTIONS TO REVIEW ================================
+
+def line_select_callback(eclick, erelease):
+    """
+    eclick and erelease are the press and release events
+    """
+    x1, y1 = eclick.xdata, eclick.ydata
+    x2, y2 = erelease.xdata, erelease.ydata
+    print("(%3.2f, %3.2f) --> (%3.2f, %3.2f)" % (x1, y1, x2, y2))
+    print(" The button you used were: %s %s" % (eclick.button, erelease.button))
+
+
+def toggle_selector(event):
+    """
+    If you press q key on keyboard, you deactivated this
+    function and pressing a key activated again. 
+    Apparently, pressing esc key will remove the box.
+    """
+    print(' Key pressed.')
+    if event.key in ['Q', 'q'] and toggle_selector.RS.active:
+        print(' RectangleSelector deactivated.')
+        toggle_selector.RS.set_active(False)
+    if event.key in ['A', 'a'] and not toggle_selector.RS.active:
+        print(' RectangleSelector activated.')
+        toggle_selector.RS.set_active(True)
 
 
 #===========================================================================
@@ -175,12 +222,12 @@ if __name__ == "__main__":
     #Creating the principal frame for images
     frame = Frame(root)
     frame.pack()
-    #frame.config(bg='pink')
+    frame.config(bg='pink')
 
     #Adding an image to initial frame (the image isn't showing up, I don't know why)
     initial_image = PhotoImage(file='radar.gif')
-    Label(frame, image=initial_image).pack()
-    Label(frame, text='DCViewer', font=('Times New Roman', 24)).pack()
+    Label(frame, image=initial_image).grid(row=0, column=0)
+    Label(frame, text='DCViewer', font=('Times New Roman', 24)).grid(row=1, column=0)
 
     #Add an icon to the window
     #root.call('wm', 'iconphoto', root._w, PhotoImage(file='galaxy.gif'))
@@ -208,15 +255,15 @@ if __name__ == "__main__":
 
     #Help options on menu bar
     help = Menu(menu_bar, tearoff=0)
-    help.add_command(label='Licency', command=lambda:show_info('Licency', 'This program has no licency yet'))
-    help.add_command(label='About',command=lambda:show_info('About', 'DCViewer version: Ordovician period 0.2'))
+    help.add_command(label='Licency', command=lambda:show_info('Licency', open('LICENSE', 'r').read()))
+    help.add_command(label='About',command=lambda:show_info('About', 'DCViewer version 0.2: Ordovician period'))
 
     #Adding the options to menu bar
     menu_bar.add_cascade(label='File', menu=file)
     menu_bar.add_cascade(label='Tools', menu=tools)
     menu_bar.add_cascade(label='Help', menu=help)
 
-    #=================== SEPARATOR ===================
+    #=================== INIT MAINLOOP ===================
     
     #Create a loop for executing the program
     root.mainloop()
