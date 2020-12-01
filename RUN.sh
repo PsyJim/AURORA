@@ -3,7 +3,7 @@
 ### A shell script to run DCViewer with ipython before python3
 ###
 
-if [ -f DCViewer/Interface.py ]; then
+if [ -f DCViewer/interface.py ]; then
     
     ipython DCViewer/interface.py || python3 DCViewer/interface.py
 
