@@ -11,6 +11,7 @@ Iconos diseñados por <a href="https://www.flaticon.es/autores/dinosoftlabs"
 #===========================
 #     LIBRARIES
 #===========================
+from itertools import groupby
 import tkinter as tk
 import numpy as np
 
@@ -19,6 +20,8 @@ import sys
 
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, NavigationToolbar2Tk
 from matplotlib.widgets import RectangleSelector
+# Implement the default Matplotlib key bindings.
+#from matplotlib.backend_bases import key_press_handler
 
 from astropy.visualization import LogStretch, LinearStretch, SqrtStretch
 import traceback #For tracing the errors
@@ -51,8 +54,7 @@ def open_file():
     Function to allow program to open FITS files
     """
     #Input global variables
-    global data
-    global header
+    global data, header
 
     #Defining filetypes to appear on window asking to open files
     filetypes = [('FITS files', ('*.fits', '*.gz')), ('All files', '*.*')]
@@ -133,7 +135,7 @@ def show_fits(data):
         add_figure.mpl_connect('key_press_event', toggle_selector) #Connect 
 
         #Add the figure as a widget to the window
-        add_figure.get_tk_widget().pack()
+        add_figure.get_tk_widget().pack(expand=tk.YES, fill=tk.BOTH)
         
     except:
         #Show an error windows with the complete problem
@@ -172,8 +174,7 @@ def change_scale(scale):
     and re-display the image
     """
     #Input global variables
-    global data
-    global scale_type
+    global data, scale_type
 
     #Conditional to change the type of scale
     if scale == 'Linear':
@@ -199,18 +200,23 @@ def text_window(title, info, type):
     """
     Function to display another tkinter window.
     """
-    #Initilizing another tkinter window
-    window = tk.Tk()
+    #Initilizing another tkinter window and grouping to main program
+    window = tk.Toplevel(root)
+    window.group(root)
     window.title(title)
+
+    #Enable widgets resizing for new window
+    window.rowconfigure(0, weight=1)
+    window.columnconfigure(0, weight=1)
 
     #Checking the type of window you like
     if type == 'header':
         
         #Creating Text widget and insert text to it
-        text = tk.Text(window, padx=5, pady=5, ) #,font=('Courier New', 12, BOLD))
+        text = tk.Text(window, padx=5, pady=5) #,font=('Courier New', 12, BOLD))
         text.insert(tk.INSERT, info)
-        text.configure(state="disabled", relief="flat")
-        text.grid(row=0, column=0)
+        text.configure(state="disabled", relief="flat", wrap='word')
+        text.grid(row=0, column=0, sticky='nswe')
 
         #Adding a scrollbar o the text
         scrollbar = tk.Scrollbar(window)
@@ -222,7 +228,7 @@ def text_window(title, info, type):
 
         #Allocate text in the window
         text = tk.Label(window, text=info, padx=5, pady=5) #,font=('Courier New', 12, BOLD))
-        text.grid(row=0, column=0)
+        text.grid(row=0, column=0, sticky='nswe')
 
 
     #Allocate button to the bottom of window
@@ -293,16 +299,24 @@ if __name__ == "__main__":
     #Create a menu bar
     menu_bar = tk.Menu(root)
     root.config(menu=menu_bar, bg='lightblue', relief='sunken', bd='10')
+    root.geometry('600x600')
 
     #Creating the principal frame for images
     frame = tk.Frame(root)
-    frame.pack()
+    frame.grid(row=0, column=0, sticky='nswe')
     frame.config(bg='pink')
+    
 
     #Adding an image to initial frame (the image isn't showing up, I don't know why)
     initial_image = tk.PhotoImage(file='../radar.gif')
-    tk.Label(frame, image=initial_image).grid(row=0, column=0)
-    tk.Label(frame, text='DCViewer', font=('Times New Roman', 24)).grid(row=1, column=0)
+    tk.Label(frame, image=initial_image, bg='pink').grid(row=0, column=0, sticky='nswe')
+    tk.Label(frame, text='DCViewer', bg='pink', font=('Times New Roman', 24)).grid(row=1, column=0, sticky='nswe')
+
+    #Configuring columns and rows to enable widgets resizing
+    root.columnconfigure(0, weight=1)
+    root.rowconfigure(0, weight=1)
+    frame.rowconfigure(0, weight=1)
+    frame.columnconfigure(0, weight=1)
 
     #Add an icon to the window
     #root.call('wm', 'iconphoto', root._w, PhotoImage(file='galaxy.gif'))
@@ -321,7 +335,7 @@ if __name__ == "__main__":
     #Tools options on the menubar
     tools = tk.Menu(menu_bar, tearoff=0)
 
-    #Sub-options in Tools
+    #Scale and sub-options in Tools
     scale = tk.Menu(tools, tearoff=0)
     scale.add_command(label="Linear scale", command=lambda:change_scale('Linear'))
     scale.add_command(label="Log scale", command=lambda:change_scale('Log'))
@@ -330,7 +344,7 @@ if __name__ == "__main__":
 
     #Help options on menu bar
     help = tk.Menu(menu_bar, tearoff=0)
-    help.add_command(label='Licency', command=lambda:text_window('Licency', open('LICENSE', 'r').read(), type='text'))
+    help.add_command(label='License', command=lambda:text_window('License', open('../LICENSE', 'r').read(), type='text'))
     help.add_command(label='About',command=lambda:text_window('About', 'DCViewer version 0.2: Ordovician period', type='text'))
 
     #Adding the options to menu bar
