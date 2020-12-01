@@ -14,13 +14,17 @@ Iconos diseñados por <a href="https://www.flaticon.es/autores/dinosoftlabs"
 import tkinter as tk
 import numpy as np
 
+import os
+import sys
+
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, NavigationToolbar2Tk
 from matplotlib.widgets import RectangleSelector
 
 from astropy.visualization import LogStretch, LinearStretch, SqrtStretch
-import traceback
+import traceback #For tracing the errors
 
 #Our methods for displaying data cubes
+os.chdir(os.path.dirname(sys.argv[0])) #Changing the Python working directory
 from Displaying import *
 
 #===========================
@@ -29,6 +33,8 @@ from Displaying import *
 data = None
 header = ''
 scale_type = LogStretch()
+
+#FITS coords
 x1 = 0
 x2 = 0
 y1 = 0
@@ -181,12 +187,12 @@ def change_scale(scale):
     show_fits(data)
 
 
-#def change_wavelenght():
-#    """
-#    Function to display a scrollbar that will
-#    change the wavelenght of the data cube
-#    """
-#    scrollbar = Scrollbar(frame)
+"""def change_wavelenght():
+    
+    #Function to display a scrollbar that will
+    #change the wavelenght of the data cube
+    
+    scrollbar = Scrollbar(frame)"""
 
 
 def text_window(title, info, type):
@@ -200,13 +206,13 @@ def text_window(title, info, type):
     #Checking the type of window you like
     if type == 'header':
         
-        #Creating the Text widget
+        #Creating Text widget and insert text to it
         text = tk.Text(window, padx=5, pady=5, ) #,font=('Courier New', 12, BOLD))
         text.insert(tk.INSERT, info)
         text.configure(state="disabled", relief="flat")
         text.grid(row=0, column=0)
 
-        #Adding a scrollbar
+        #Adding a scrollbar o the text
         scrollbar = tk.Scrollbar(window)
         scrollbar.grid(row=0, column=1, sticky='nswe')
         scrollbar.config(command = text.yview)
