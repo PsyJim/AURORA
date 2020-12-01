@@ -5,11 +5,11 @@
 
 if [ -f DCViewer/Interface.py ]; then
     
-    ipython DCViewer/Interface.py || python3 DCViewer/Interface.py
+    ipython DCViewer/interface.py || python3 DCViewer/interface.py
 
 else
 
-    echo "There is no python interpreter installed!"
+    echo "There is no python interpreter installed or file interface.py doesn't exist!"
     exit    
 
 fi

@@ -25,7 +25,7 @@ import traceback #For tracing the errors
 
 #Our methods for displaying data cubes
 os.chdir(os.path.dirname(sys.argv[0])) #Changing the Python working directory
-from Displaying import *
+from displaying import *
 
 #===========================
 #     GLOBAL VARIABLES
