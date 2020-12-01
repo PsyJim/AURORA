@@ -1,6 +1,6 @@
 # DCViewer (Data Cube Viewer)
 
-## Introduction
+## An introduction
 
 ### What is DCViewer?
 DCViewer borns as an intent of project of some undergrad astronomers. It is a graphical interface to display data cubes from distinct IFS (Integral Field Spectroscopy) telescopes as; MaNGa, MUSE and CALIFA.
