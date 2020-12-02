@@ -4,7 +4,7 @@ DCViewer. We are using tkinter as our default interface
 package.
 
 Copyright (C) 2020  Jim Acosta
-For conditions of distribution and use, see copyright notice in "copyright.txt"
+For conditions of distribution and use, see copyright notice in "notice"
 """
 
 #===========================
