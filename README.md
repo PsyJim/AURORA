@@ -14,7 +14,7 @@ As the name says, it can display data cubes from differentes IFS telescopes. Als
 ## Running DCViewer
 
 ### Before running DCViewer!
-Like a lot Python programs out there, we implement distint packages to get done our program. In this case, if you haven't anaconda installed, maybe you would like to check Makefile out, it will install the required dependencies with pip install. Just enter to the DCviewer root directory, open the sell and type
+Like a lot Python programs out there, we implement distint packages to get done our program. In this case, if you haven't anaconda installed, maybe you would like to check Makefile out, it will install the required dependencies with pip install. Just open the shell, get to the root directory of DCViewer and type
 
 ```
 $ make
