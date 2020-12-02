@@ -3,9 +3,8 @@ This python file stores all the interface stuff for
 DCViewer. We are using tkinter as our default interface
 package.
 
-Iconos diseñados por <a href="https://www.flaticon.es/autores/dinosoftlabs" 
-    title="DinosoftLabs">DinosoftLabs</a> from <a href="https://www.flaticon.es/" 
-    title="Flaticon"> www.flaticon.es</a>
+Copyright (C) 2020  Jim Acosta
+For conditions of distribution and use, see copyright notice in "copyright.txt"
 """
 
 #===========================

@@ -1,6 +1,9 @@
 """
 This python file containg all the necessary methods
 and libraries to display data cubes of IFS telescopes.
+
+Copyright (C) 2020  Jim Acosta
+For conditions of distribution and use, see copyright notice in "copyright.txt"
 """
 
 #===========================
