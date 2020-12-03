@@ -4,7 +4,7 @@ DCViewer. We are using tkinter as our default interface
 package.
 
 Copyright (C) 2020  Jim Acosta
-For conditions of distribution and use, see copyright notice in "copyright.txt"
+For conditions of distribution and use, see copyright notice in "notice"
 """
 
 #===========================
@@ -16,6 +16,11 @@ import numpy as np
 
 import os
 import sys
+
+#Something that will help
+if os.environ.get('DISPLAY','') == '':
+    print('no display found. Using :0.0')
+    os.environ.__setitem__('DISPLAY', ':0.0')
 
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, NavigationToolbar2Tk
 from matplotlib.widgets import RectangleSelector

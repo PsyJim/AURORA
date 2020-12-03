@@ -18,4 +18,4 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 jimgerardo@outlook.com
     
-https://github.com/PsyJim/DCViewer
+<https://github.com/PsyJim/DCViewer>
