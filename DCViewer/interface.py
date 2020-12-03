@@ -312,7 +312,7 @@ if __name__ == "__main__":
     
 
     #Adding an image to initial frame (the image isn't showing up, I don't know why)
-    initial_image = tk.PhotoImage(file='../radar.gif')
+    initial_image = tk.PhotoImage(file='../Logo_DCViewer.gif')
     tk.Label(frame, image=initial_image, bg='pink').grid(row=0, column=0, sticky='nswe')
     tk.Label(frame, text='DCViewer', bg='pink', font=('Times New Roman', 24)).grid(row=1, column=0, sticky='nswe')
 

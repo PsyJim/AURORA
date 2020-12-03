@@ -38,7 +38,7 @@ def plot_fits(data, scale_type):
 
     #Data display settings
     norm = ImageNormalize(data, interval=MinMaxInterval(), stretch=scale_type)
-    image = ax.imshow(data, norm=norm, origin='lower', cmap ='gray')
+    image = ax.imshow(data, norm=norm, origin='lower', cmap ='gist_rainbow')
     fig.colorbar(image)
     fig.suptitle('FITS data cube')
 
