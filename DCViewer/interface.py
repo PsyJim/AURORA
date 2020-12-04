@@ -13,10 +13,13 @@ For conditions of distribution and use, see copyright notice in "notice"
 
 import tkinter as tk
 import os
-import sys
+#import sys
+
+#Changing the Python working directory to the core file
+absolute_directory = os.path.dirname(os.path.abspath(__file__))
+os.chdir(absolute_directory) 
 
 #Our methods for displaying data cubes
-os.chdir(os.path.dirname(sys.argv[0])) #Changing the Python working directory
 from displaying import *
 
 

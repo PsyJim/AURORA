@@ -13,8 +13,8 @@ from astropy.io import fits
 from astropy.visualization import ImageNormalize, MinMaxInterval
 import numpy as np
 
-import matplotlib
-matplotlib.use('Agg') #This is the default non-interactive backend to render plots we use
+#import matplotlib
+#matplotlib.use('Agg') #This is the default non-interactive backend to render plots
 from matplotlib import pyplot as plt
 
 
