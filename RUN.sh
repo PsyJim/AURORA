@@ -5,7 +5,7 @@
 
 if [ -f DCViewer/interface.py ]; then
     
-    ipython DCViewer/interface.py || python3 DCViewer/interface.py
+    python3 DCViewer/interface.py
 
 else
 
