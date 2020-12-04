@@ -10,17 +10,20 @@ For conditions of distribution and use, see copyright notice in "notice"
 #===========================
 #     LIBRARIES
 #===========================
-from itertools import groupby
-import tkinter as tk
-import numpy as np
 
+import tkinter as tk
 import os
 import sys
 
+#Our methods for displaying data cubes
+os.chdir(os.path.dirname(sys.argv[0])) #Changing the Python working directory
+from displaying import *
+
+
 #Something that will help
-if os.environ.get('DISPLAY','') == '':
-    print('no display found. Using :0.0')
-    os.environ.__setitem__('DISPLAY', ':0.0')
+#if os.environ.get('DISPLAY','') == '':
+#    print('no display found. Using :0.0')
+#    os.environ.__setitem__('DISPLAY', ':0.0')
 
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, NavigationToolbar2Tk
 from matplotlib.widgets import RectangleSelector
@@ -30,9 +33,6 @@ from matplotlib.widgets import RectangleSelector
 from astropy.visualization import LogStretch, LinearStretch, SqrtStretch
 import traceback #For tracing the errors
 
-#Our methods for displaying data cubes
-os.chdir(os.path.dirname(sys.argv[0])) #Changing the Python working directory
-from displaying import *
 
 #===========================
 #     GLOBAL VARIABLES
@@ -214,7 +214,7 @@ def text_window(title, info, type):
     window.columnconfigure(0, weight=1)
 
     #Checking the type of window you like
-    if type == 'header':
+    if type == 'header' or type == 'license':
         
         #Creating Text widget and insert text to it
         text = tk.Text(window, padx=5, pady=5) #,font=('Courier New', 12, BOLD))
@@ -241,19 +241,6 @@ def text_window(title, info, type):
 
     #Window loop
     window.mainloop()
-
-
-def integrate_flux(data, x1, x2, y1, y2):
-    """
-    Short function to calculate an approximate
-    flux inside a rectangle due to integer coords.
-    """
-    #Simply integrating region with sum from numpy
-    integrated_flux = np.sum(data[int(x1):int(x2),int(y1):int(y2)])
-    print('Flux: %.2f' % integrated_flux)
-
-    return integrated_flux
-
 
 
 #================================= FUNCTIONS TO REVIEW ================================
@@ -348,7 +335,7 @@ if __name__ == "__main__":
 
     #Help options on menu bar
     help = tk.Menu(menu_bar, tearoff=0)
-    help.add_command(label='License', command=lambda:text_window('License', open('../LICENSE', 'r').read(), type='text'))
+    help.add_command(label='License', command=lambda:text_window('License', open('../LICENSE', 'r').read(), type='license'))
     help.add_command(label='About',command=lambda:text_window('About', 'DCViewer version 0.2: Ordovician period', type='text'))
 
     #Adding the options to menu bar
