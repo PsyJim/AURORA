@@ -16,7 +16,7 @@ import numpy as np
 import matplotlib
 matplotlib.use('Agg') #This is the default non-interactive backend to render plots
 from matplotlib import pyplot as plt
-
+plt.style.use('dark_background')
 
 #===========================================================================
 #                            METHODS
@@ -46,7 +46,7 @@ def plot_fits(data, scale_type):
     image = ax.imshow(data, norm=norm, origin='lower', cmap ='gist_rainbow')
     fig.colorbar(image)
     fig.suptitle('FITS data cube')
-
+    
     return fig, ax
 
 
