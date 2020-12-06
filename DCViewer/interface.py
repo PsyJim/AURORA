@@ -122,7 +122,7 @@ def show_fits(data):
     #Handling errors with try sentence
     try:
         #Creating the data cube figure
-        fig, ax = plot_fits(data, scale_type)
+        fig, ax = plot_fits(data, scale_type, header)
 
         #Display figure with data in window
         add_figure = FigureCanvasTkAgg(fig, frame)
@@ -293,7 +293,7 @@ if __name__ == "__main__":
     #Create a menu bar
     menu_bar = tk.Menu(root)
     root.config(menu=menu_bar, bg='lightblue', relief='sunken', bd='10')
-    root.geometry('600x600')
+    root.geometry('620x680')
 
     #Creating the principal frame for images
     frame = tk.Frame(root)

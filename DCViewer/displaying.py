@@ -13,6 +13,10 @@ from astropy.io import fits
 from astropy.visualization import ImageNormalize, MinMaxInterval
 import numpy as np
 
+#FOR COORDINATES PLOTING
+from astropy.wcs import WCS
+from astropy.utils.data import get_pkg_data_filename
+
 import matplotlib
 matplotlib.use('Agg') #This is the default non-interactive backend to render plots
 from matplotlib import pyplot as plt
@@ -30,7 +34,7 @@ def read_cube(file, wavelenght):
     return data_flux[wavelenght,:,:], data_flux_header
 
 
-def plot_fits(data, scale_type):
+def plot_fits(data, scale_type, fitsheader):
     """
     Function to display data FITS with matplotlib
     """
@@ -44,9 +48,28 @@ def plot_fits(data, scale_type):
     #Data display settings
     norm = ImageNormalize(data, interval=MinMaxInterval(), stretch=scale_type)
     image = ax.imshow(data, norm=norm, origin='lower', cmap ='gist_rainbow')
-    fig.colorbar(image)
-    fig.suptitle('FITS data cube')
-    
+    #--> Labels section
+    fig.suptitle('MaNGA ID: '+str(fitsheader['MANGAID'])) 
+    #fig.set_ylabel()
+    #ax.set_ylabel(str(fitsheader['BUNIT']), rotation=270)
+    ax.set_xlabel("pixels")
+    ax.set_ylabel("pixels")    
+    #ax.title()  
+    bar = fig.colorbar(image) #Defining colorbar as bar  
+    bar.set_label(str(fitsheader['BUNIT'])) #Label of colorbar
+    """
+    #--> Coordinates grid: https://docs.astropy.org/en/stable/visualization/wcsaxes/
+    #hdu = fits.open(filename)[0]
+    #wcs = WCS(hdu.header)
+
+    wcs = WCS(fitsheader)
+    ax2 = plt.subplot(projection=wcs)
+
+    overlay = ax2.get_coords_overlay('fk5')
+    overlay.grid(color='white', ls='dotted')
+    overlay[0].set_axislabel('Right Ascension (J2000)')
+    overlay[1].set_axislabel('Declination (J2000)')
+    """
     return fig, ax
 
 
