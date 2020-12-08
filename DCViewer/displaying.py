@@ -2,7 +2,7 @@
 This python file containg all the necessary methods
 and libraries to display data cubes of IFS telescopes.
 
-Copyright (C) 2020  Jim Acosta
+Copyright (C) 2020  Jim Acosta, Sebastián Carrazco
 For conditions of distribution and use, see copyright notice in "notice"
 """
 
@@ -90,5 +90,4 @@ def integrate_flux(data, x1, x2, y1, y2):
 #===========================
 
 if __name__ == "__main__":
-    #read_cube('StarFieldForever.fits')
     pass

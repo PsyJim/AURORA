@@ -3,7 +3,7 @@ This python file stores all the interface stuff for
 DCViewer. We are using tkinter as our default interface
 package.
 
-Copyright (C) 2020  Jim Acosta
+Copyright (C) 2020  Jim Acosta, Sebastián Carrazco
 For conditions of distribution and use, see copyright notice in "notice"
 """
 
@@ -149,32 +149,6 @@ def show_fits(data):
         show_error(traceback.format_exc())
 
 
-"""def show_header(header):
-    
-    #Function to show a window with the data header
-    
-    #Input global variable
-    #global header
-
-    window = tk.Tk()
-    window.title('Header')
-
-    #Adding a scrollbar to window
-    scrollbar = tk.Scrollbar(window)
-    scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
-
-    #Allocate text in the window
-    text = tk.Text(window, text=header) #,font=('Courier New', 12, BOLD))
-    text.pack()
-
-    #Allocate button to the bottom of window
-    ok_button = tk.Button(window, text='Ok', command=window.destroy)
-    ok_button.pack()
-
-    #Window loop
-    window.mainloop()"""
-
-
 def change_scale(scale):
     """
     Function that change the scale for data
@@ -195,17 +169,10 @@ def change_scale(scale):
     show_fits(data)
 
 
-"""def change_wavelenght():
-    
-    #Function to display a scrollbar that will
-    #change the wavelenght of the data cube
-    
-    scrollbar = Scrollbar(frame)"""
-
-
 def text_window(title, info, type):
     """
-    Function to display another tkinter window.
+    Function to display a tkinter window with text.
+    Useful to display FITS data header, too.
     """
     #Initilizing another tkinter window and grouping to main program
     window = tk.Toplevel(root)
@@ -300,8 +267,7 @@ if __name__ == "__main__":
     frame.grid(row=0, column=0, sticky='nswe')
     frame.config(bg='pink')
     
-
-    #Adding an image to initial frame (the image isn't showing up, I don't know why)
+    #Adding an image to initial frame
     initial_image = tk.PhotoImage(file='../LogoDC_Viewer_600.gif')
     tk.Label(frame, image=initial_image, bg='light steel blue').grid(row=0, column=0, sticky='nswe')
     tk.Label(frame, text='DCViewer', bg='RoyalBlue2', font=('Ubuntu', 24)).grid(row=1, column=0, sticky='nswe')
@@ -313,7 +279,7 @@ if __name__ == "__main__":
     frame.columnconfigure(0, weight=1)
 
     #Add an icon to the window
-    #root.call('wm', 'iconphoto', root._w, PhotoImage(file='galaxy.gif'))
+    root.call('wm', 'iconphoto', root._w, initial_image)
 
     #================================================
     #                DEFINING ITEMS FOR MENU BAR
