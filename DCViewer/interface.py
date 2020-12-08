@@ -49,7 +49,7 @@ class Application():
         self.root.geometry('620x680')
 
         # Add an icon to the window
-        initial_image = tk.PhotoImage(file='LogoDC_Viewer_600.gif')
+        initial_image = tk.PhotoImage(file='../LogoDC_Viewer_600.gif')
         self.root.call('wm', 'iconphoto', self.root._w, initial_image)
 
         # Configuring first column and row of root window to allow frame resizing
@@ -159,7 +159,7 @@ class Application():
         help.add_command(
             label='License', 
             command=lambda:menu.Help().text_license(
-                'License', open('notice.md', 'r').read(), self.root)
+                'License', open('../notice.md', 'r').read(), self.root)
         )
         help.add_command(
             label='About',
