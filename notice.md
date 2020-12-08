@@ -1,7 +1,7 @@
 DCViewer is a graphical interface that allow the users to view and analyse 
 data cubes from IFU telescopes. 
 
-Copyright (C) 2020  Jim Acosta
+Copyright (C) 2020  Jim Acosta, Sebastián Carrazco
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
