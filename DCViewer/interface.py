@@ -122,7 +122,7 @@ def show_fits(data):
     #Handling errors with try sentence
     try:
         #Creating the data cube figure
-        fig, ax = plot_fits(data, scale_type)
+        fig, ax = plot_fits(data, scale_type, header)
 
         #Display figure with data in window
         add_figure = FigureCanvasTkAgg(fig, frame)
@@ -293,7 +293,7 @@ if __name__ == "__main__":
     #Create a menu bar
     menu_bar = tk.Menu(root)
     root.config(menu=menu_bar, bg='lightblue', relief='sunken', bd='10')
-    root.geometry('600x600')
+    root.geometry('620x680')
 
     #Creating the principal frame for images
     frame = tk.Frame(root)
@@ -302,9 +302,9 @@ if __name__ == "__main__":
     
 
     #Adding an image to initial frame (the image isn't showing up, I don't know why)
-    initial_image = tk.PhotoImage(file='../Logo_DCViewer.gif')
-    tk.Label(frame, image=initial_image, bg='pink').grid(row=0, column=0, sticky='nswe')
-    tk.Label(frame, text='DCViewer', bg='pink', font=('Times New Roman', 24)).grid(row=1, column=0, sticky='nswe')
+    initial_image = tk.PhotoImage(file='../LogoDC_Viewer_600.gif')
+    tk.Label(frame, image=initial_image, bg='light steel blue').grid(row=0, column=0, sticky='nswe')
+    tk.Label(frame, text='DCViewer', bg='RoyalBlue2', font=('Ubuntu', 24)).grid(row=1, column=0, sticky='nswe')
 
     #Configuring columns and rows to enable widgets resizing
     root.columnconfigure(0, weight=1)
